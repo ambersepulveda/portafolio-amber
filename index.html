@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio Profesional - Amber Sepulveda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            },
+            accent: {
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          },
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: #0f172a;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .section {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeIn 0.5s ease backwards;
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .nav-active {
+      color: #3b82f6 !important;
+      position: relative;
+    }
+    
+    .nav-active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #3b82f6;
+      border-radius: 1px;
+    }
+    
+    .card-gradient {
+      background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+      border: 1px solid #334155;
+      box-shadow: -4px 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    
+    .icon-box {
+      background: linear-gradient(to bottom right, #334155 0%, hsla(220, 13%, 30%, 0) 50%);
+      position: relative;
+      box-shadow: -4px 8px 24px rgba(0, 0, 0, 0.25);
+      z-index: 1;
+    }
+    
+    .icon-box::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      background: linear-gradient(to bottom right, hsla(220, 13%, 28%, 0.3) 0%, hsla(220, 13%, 20%, 0) 100%), #1e293b;
+      border-radius: inherit;
+      z-index: -1;
+    }
+    
+    .content-card {
+      position: relative;
+      background: linear-gradient(to bottom right, #334155 0%, hsla(220, 13%, 30%, 0) 50%);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      z-index: 1;
+    }
+    
+    .content-card::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      background: linear-gradient(to bottom right, hsla(220, 13%, 28%, 0.3) 0%, hsla(220, 13%, 20%, 0) 100%), #1e293b;
+      border-radius: inherit;
+      z-index: -1;
+    }
+    
+    .sidebar {
+      max-height: 112px;
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+    }
+    
+    .sidebar.active {
+      max-height: 405px;
+    }
+    
+    .info_more-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      border-radius: 0 15px;
+      background: linear-gradient(to bottom right, #334155 0%, hsla(220, 13%, 30%, 0) 50%);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s ease;
+      z-index: 1;
+    }
+    
+    .info_more-btn::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      background: linear-gradient(to bottom right, hsla(220, 13%, 28%, 0.3) 0%, hsla(220, 13%, 20%, 0) 100%), #1e293b;
+      border-radius: inherit;
+      z-index: -1;
+      transition: all 0.25s ease;
+    }
+    
+    .info_more-btn:hover,
+    .info_more-btn:focus {
+      background: linear-gradient(to bottom right, #3b82f6 0%, hsla(220, 90%, 75%, 0) 50%);
+    }
+    
+    .info_more-btn:hover::before,
+    .info_more-btn:focus::before {
+      background: linear-gradient(135deg, hsla(220, 100%, 85%, 0.25) 0%, hsla(220, 80%, 75%, 0) 60%), #1e293b;
+    }
+    
+    .sidebar-info_more {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease-in-out;
+    }
+    
+    .sidebar.active .sidebar-info_more {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .service-item {
+      position: relative;
+      background: linear-gradient(to bottom right, #334155 0%, hsla(220, 13%, 30%, 0) 50%);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.25);
+      z-index: 1;
+    }
+    
+    .service-item::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      background: linear-gradient(to bottom right, hsla(220, 13%, 28%, 0.3) 0%, hsla(220, 13%, 20%, 0) 100%), #1e293b;
+      border-radius: inherit;
+      z-index: -1;
+    }
+    
+    .testimonials-avatar-box {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 15px;
+      border: 3px solid #334155;
+    }
+    
+    .skill-progress-bg {
+      background: #334155;
+      width: 100%;
+      height: 8px;
+      border-radius: 10px;
+    }
+    
+    .skill-progress-fill {
+      background: linear-gradient(to right, #3b82f6, #2563eb);
+      height: 100%;
+      border-radius: inherit;
+    }
+    
+    .project-img::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 1;
+      transition: all 0.25s ease;
+    }
+    
+    .project-item > a:hover .project-img::before {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    .project-item-icon-box {
+      --scale: 0.8;
+      background: #334155;
+      color: #3b82f6;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(var(--scale));
+      border-radius: 12px;
+      opacity: 0;
+      z-index: 1;
+      transition: all 0.25s ease;
+    }
+    
+    .project-item > a:hover .project-item-icon-box {
+      --scale: 1;
+      opacity: 1;
+    }
+    
+    .project-item > a:hover img {
+      transform: scale(1.1);
+    }
+    
+    .form-btn {
+      position: relative;
+      background: linear-gradient(to bottom right, #334155 0%, hsla(220, 13%, 30%, 0) 50%);
+      color: #3b82f6;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      z-index: 1;
+      transition: all 0.25s ease;
+    }
+    
+    .form-btn::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      background: linear-gradient(to bottom right, hsla(220, 13%, 28%, 0.3) 0%, hsla(220, 13%, 20%, 0) 100%), #1e293b;
+      border-radius: inherit;
+      z-index: -1;
+      transition: all 0.25s ease;
+    }
+    
+    .form-btn:hover {
+      background: linear-gradient(to bottom right, #3b82f6 0%, hsla(220, 90%, 75%, 0) 50%);
+    }
+    
+    .form-btn:hover::before {
+      background: linear-gradient(135deg, hsla(220, 100%, 85%, 0.25) 0%, hsla(220, 80%, 75%, 0) 60%), #1e293b;
+    }
+    
+    .navbar-list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+    
+    .navbar-list::-webkit-scrollbar {
+      height: 3px;
+    }
+    
+    .navbar-list::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-list::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 3px;
+    }
+    
+    .main-content {
+      position: relative;
+      min-height: 600px;
+    }
+    
+    @media (min-width: 580px) {
+      .sidebar {
+        max-height: 180px;
+      }
+      
+      .sidebar.active {
+        max-height: 584px;
+      }
+      
+      .info_more-btn span {
+        display: block;
+      }
+      
+      .info_more-btn i {
+        display: none;
+      }
+    }
+    
+    @media (min-width: 1250px) {
+      .sidebar {
+        position: sticky;
+        top: 60px;
+        max-height: max-content;
+        height: 100%;
+      }
+      
+      .sidebar-info {
+        flex-direction: column;
+      }
+      
+      .info_more-btn {
+        display: none;
+      }
+      
+      .sidebar-info_more {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  </style>
+</head>
+<body class="font-poppins">
+  <main class="p-4 max-w-6xl mx-auto">
+    <div class="flex flex-col lg:flex-row gap-4">
+      
+      <!-- Sidebar -->
+      <aside class="sidebar card-gradient rounded-2xl p-4 w-full lg:w-1/3">
+        <div class="sidebar-info relative">
+          <div class="flex flex-col items-center text-center">
+            <figure class="avatar-box bg-gradient-to-br from-primary-800 to-primary-900 rounded-2xl p-2 mb-4">
+              <img src="/fotos/myphoto.png" 
+                   alt="Amber Sepulveda" width="120" class="rounded-2xl">
+            </figure>
+            
+            <div class="info-content mb-4 w-full">
+              <h1 class="name text-white text-2xl font-bold mb-2 tracking-tight leading-tight" style="letter-spacing: -0.5px; line-height: 1.1;">
+                Amber M.<br>Rivera Sepulveda
+              </h1>
+              <p class="title bg-primary-800 text-white text-sm px-3 py-1 rounded-lg inline-block mt-2">Web Developer</p>
+            </div>
+            
+            <button class="info_more-btn text-accent-500 text-xs p-2" data-sidebar-btn>
+              <span class="hidden">Show Contacts</span>
+              <i class="fas fa-chevron-down text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-info_more">
+          <div class="separator h-px bg-primary-700 my-4"></div>
+
+          <ul class="contacts-list space-y-4">
+            <li class="contact-item flex items-center">
+              <div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-envelope text-accent-500 text-sm"></i>
+              </div>
+              <div class="contact-info">
+                <p class="contact-title text-xs text-primary-400 uppercase">Email</p>
+                <a href="mailto:Amberrivera885@gmail.com" class="contact-link text-sm text-white">Amberrivera885@gmail.com</a>
+              </div>
+            </li>
+
+            <li class="contact-item flex items-center">
+              <div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-phone text-accent-500 text-sm"></i>
+              </div>
+              <div class="contact-info">
+                <p class="contact-title text-xs text-primary-400 uppercase">Phone</p>
+                <a href="tel:809-885-2991" class="contact-link text-sm text-white">809-885-2991</a>
+              </div>
+            </li>
+
+            <li class="contact-item flex items-center">
+              <div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-map-marker-alt text-accent-500 text-sm"></i>
+              </div>
+              <div class="contact-info">
+                <p class="contact-title text-xs text-primary-400 uppercase">Location</p>
+                <address class="text-sm text-white not-italic">Santo Domingo.<br> Republica Dominicana</address>
+              </div>
+            </li>
+          </ul>
+
+          <div class="separator h-px bg-primary-700 my-4"></div>
+
+          <ul class="social-list flex space-x-3 justify-center">
+            <li class="social-item">
+              <a href="#" class="social-link text-primary-400 text-lg hover:text-white transition-colors">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="social-item">
+              <a href="#" class="social-link text-primary-400 text-lg hover:text-white transition-colors">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="social-item">
+              <a href="#" class="social-link text-primary-400 text-lg hover:text-white transition-colors">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="main-content w-full lg:w-2/3">
+        <!-- Navigation -->
+        <nav class="navbar bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-4 mb-4 border border-primary-700 shadow-lg">
+          <ul class="navbar-list flex flex-wrap justify-center space-x-2 md:space-x-6">
+            <li class="navbar-item">
+              <button class="navbar-link text-primary-300 hover:text-white transition-colors nav-active" data-nav-link="about">Sobre mi</button>
+            </li>
+            <li class="navbar-item">
+              <button class="navbar-link text-primary-300 hover:text-white transition-colors" data-nav-link="resume">Currículum</button>
+            </li>
+            <li class="navbar-item">
+              <button class="navbar-link text-primary-300 hover:text-white transition-colors" data-nav-link="portfolio">Portfolio</button>
+            </li>
+          
+            <li class="navbar-item">
+              <button class="navbar-link text-primary-300 hover:text-white transition-colors" data-nav-link="contact">Contacto</button>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- About Section -->
+        <article class="about section card-gradient rounded-2xl p-4 mb-4 active" data-page="about">
+          <header class="mb-4">
+            <h2 class="text-xl font-bold text-white relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-1 after:bg-gradient-to-r after:from-accent-500 after:to-accent-600">
+              Sobre mi
+            </h2>
+          </header>
+
+     <section class="about-text mb-6">
+  <p class="text-primary-300 text-sm mb-3">
+    Ingeniera en Sistemas Computacionales con experiencia en Aseguramiento de la Calidad (Quality Control) y
+    desarrollo frontend, especializada en la creación de sitios web modernos, funcionales y completamente
+    responsivos.
+  </p>
+  <p class="text-primary-300 text-sm">
+    Cuento con sólidas habilidades en el desarrollo de interfaces claras, intuitivas y atractivas, utilizando
+    tecnologías como HTML, CSS, JavaScript, Tailwind CSS y Bootstrap. Asimismo, aplico pruebas funcionales y
+    procesos de validación de calidad para garantizar productos estables, eficientes y alineados con los
+    objetivos estratégicos del negocio, asegurando una óptima experiencia de usuario.
+  </p>
+</section>
+
+
+
+          <!-- Services -->
+          <!-- Services -->
+<section class="service mb-6">
+  <h3 class="text-lg font-semibold text-white mb-3">Mis Servicios</h3>
+
+  <ul class="service-list grid grid-cols-1 md:grid-cols-2 gap-3">
+
+    <!-- Diseño Web -->
+    <li class="service-item rounded-xl p-4">
+      <div class="service-icon-box w-10 h-10 rounded-lg flex items-center justify-center mb-2 mx-auto">
+        <i class="fas fa-palette text-accent-500 text-xl"></i>
+      </div>
+      <div class="service-content-box text-center">
+        <h4 class="text-base font-medium text-white mb-1">Diseño Web</h4>
+        <p class="service-item-text text-primary-300 text-xs">
+          Diseño de interfaces web modernas, intuitivas y visualmente atractivas, enfocadas en la
+          usabilidad, accesibilidad y adaptación a diferentes dispositivos.
+        </p>
+      </div>
+    </li>
+
+    <!-- Desarrollo Frontend -->
+    <li class="service-item rounded-xl p-4">
+      <div class="service-icon-box w-10 h-10 rounded-lg flex items-center justify-center mb-2 mx-auto">
+        <i class="fas fa-code text-accent-500 text-xl"></i>
+      </div>
+      <div class="service-content-box text-center">
+        <h4 class="text-base font-medium text-white mb-1">Desarrollo Frontend</h4>
+        <p class="service-item-text text-primary-300 text-xs">
+          Desarrollo de sitios web funcionales y responsivos utilizando HTML, CSS, JavaScript,
+          Tailwind CSS y Bootstrap, siguiendo buenas prácticas de desarrollo.
+        </p>
+      </div>
+    </li>
+
+    <!-- Control de Calidad -->
+    <li class="service-item rounded-xl p-4">
+      <div class="service-icon-box w-10 h-10 rounded-lg flex items-center justify-center mb-2 mx-auto">
+        <i class="fas fa-check-circle text-accent-500 text-xl"></i>
+      </div>
+      <div class="service-content-box text-center">
+        <h4 class="text-base font-medium text-white mb-1">Control de Calidad (Pruebas Manuales)</h4>
+        <p class="service-item-text text-primary-300 text-xs">
+          Ejecución de pruebas manuales de software, validación de funcionalidades, pruebas de
+          usabilidad, documentación de incidencias y verificación del cumplimiento de requisitos.
+        </p>
+      </div>
+    </li>
+
+    <!-- Bases de Datos -->
+    <li class="service-item rounded-xl p-4">
+      <div class="service-icon-box w-10 h-10 rounded-lg flex items-center justify-center mb-2 mx-auto">
+        <i class="fas fa-database text-accent-500 text-xl"></i>
+      </div>
+      <div class="service-content-box text-center">
+        <h4 class="text-base font-medium text-white mb-1">SQL Server y Bases de Datos</h4>
+        <p class="service-item-text text-primary-300 text-xs">
+          Manejo de bases de datos en SQL Server, elaboración de consultas, validación de datos y
+          apoyo en la organización de la información.
+        </p>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+
+
+          <section class="courses">
+            <h3 class="text-lg font-semibold text-white mb-3">Cursos</h3>
+            <div class="courses-grid">
+              <!-- Solo una fila con 3 elementos -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="curso-item bg-primary-800 rounded-xl p-4 h-24 flex flex-col items-center justify-center hover:bg-primary-700 transition-colors cursor-pointer">
+                  <i class="fab fa-html5 text-accent-500 text-2xl mb-2"></i>
+                  <span class="text-accent-500 font-bold text-sm">HTML/CSS</span>
+                </div>
+                <div class="curso-item bg-primary-800 rounded-xl p-4 h-24 flex flex-col items-center justify-center hover:bg-primary-700 transition-colors cursor-pointer">
+                  <i class="fab fa-js-square text-accent-500 text-2xl mb-2"></i>
+                  <span class="text-accent-500 font-bold text-sm">JavaScript</span>
+                </div>
+                <div class="curso-item bg-primary-800 rounded-xl p-4 h-24 flex flex-col items-center justify-center hover:bg-primary-700 transition-colors cursor-pointer">
+                  <i class="fas fa-database text-accent-500 text-2xl mb-2"></i>
+                  <span class="text-accent-500 font-bold text-sm">SQL</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        <!-- Resume Section -->
+        <article class="resume section card-gradient rounded-2xl p-4 mb-4" data-page="resume">
+          <header class="mb-4">
+            <h2 class="text-xl font-bold text-white relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-1 after:bg-gradient-to-r after:from-accent-500 after:to-accent-600">
+              Resume
+            </h2>
+          </header>
+
+          <!-- Education -->
+          <section class="timeline mb-6">
+            <div class="title-wrapper flex items-center mb-4">
+              <div class="icon-box w-10 h-10 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-book text-accent-500"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Education</h3>
+            </div>
+
+            <ol class="timeline-list border-l border-primary-700 ml-5">
+              <li class="timeline-item mb-4 ml-6 relative">
+                <div class="absolute w-3 h-3 bg-accent-500 rounded-full -left-1.5 border-4 border-primary-900"></div>
+                <h4 class="text-base font-medium text-white">Universidad O&M</h4>
+                <span class="text-accent-500 text-sm">2021— 2025</span>
+                <p class="timeline-text text-primary-300 text-sm mt-2">
+                  Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
+                  quas molestias exceptur.
+                </p>
+              </li>
+              
+              <li class="timeline-item mb-4 ml-6 relative">
+                <div class="absolute w-3 h-3 bg-accent-500 rounded-full -left-1.5 border-4 border-primary-900"></div>
+                <h4 class="text-base font-medium text-white">New york academy of art</h4>
+                <span class="text-accent-500 text-sm">2006 — 2007</span>
+                <p class="timeline-text text-primary-300 text-sm mt-2">
+                  Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est omnis.
+                </p>
+              </li>
+              
+              <li class="timeline-item ml-6 relative">
+                <div class="absolute w-3 h-3 bg-accent-500 rounded-full -left-1.5 border-4 border-primary-900"></div>
+                <h4 class="text-base font-medium text-white">High school of art and design</h4>
+                <span class="text-accent-500 text-sm">2002 — 2004</span>
+                <p class="timeline-text text-primary-300 text-sm mt-2">
+                  Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur magni dolores eos.
+                </p>
+              </li>
+            </ol>
+          </section>
+
+          <!-- Experience -->
+          <section class="timeline mb-6">
+            <div class="title-wrapper flex items-center mb-4">
+              <div class="icon-box w-10 h-10 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-book text-accent-500"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-white">Experience</h3>
+            </div>
+
+            <ol class="timeline-list border-l border-primary-700 ml-5">
+              <li class="timeline-item mb-4 ml-6 relative">
+                <div class="absolute w-3 h-3 bg-accent-500 rounded-full -left-1.5 border-4 border-primary-900"></div>
+                <h4 class="text-base font-medium text-white">Creative director</h4>
+                <span class="text-accent-500 text-sm">2015 — Present</span>
+                <p class="timeline-text text-primary-300 text-sm mt-2">
+                  Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas
+                  molestias exceptur.
+                </p>
+              </li>
+              
+              <li class="timeline-item mb-4 ml-6 relative">
+                <div class="absolute w-3 h-3 bg-accent-500 rounded-full -left-1.5 border-4 border-primary-900"></div>
+                <h4 class="text-base font-medium text-white">Art director</h4>
+                <span class="text-accent-500 text-sm">2013 — 2015</span>
+                <p class="timeline-text text-primary-300 text-sm mt-2">
+                  Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
+                  quas molestias exceptur.
+                </p>
+              </li>
+              
+              <li class="timeline-item ml-6 relative">
+                <div class="absolute w-3 h-3 bg-accent-500 rounded-full -left-1.5 border-4 border-primary-900"></div>
+                <h4 class="text-base font-medium text-white">Web designer</h4>
+                <span class="text-accent-500 text-sm">2010 — 2013</span>
+                <p class="timeline-text text-primary-300 text-sm mt-2">
+                  Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
+                  quas molestias exceptur.
+                </p>
+              </li>
+            </ol>
+          </section>
+
+            </article>
+        <!-- Portfolio Section -->
+        <article class="portfolio section card-gradient rounded-2xl p-4 mb-4" data-page="portfolio">
+          <header class="mb-4">
+            <h2 class="text-xl font-bold text-white relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-1 after:bg-gradient-to-r after:from-accent-500 after:to-accent-600">
+              Portfolio
+            </h2>
+          </header>
+
+          <section class="projects">
+            <!-- Filter Buttons -->
+            <ul class="filter-list flex flex-wrap gap-2 mb-4">
+              <li class="filter-item">
+                <button class="filter-btn bg-accent-500 text-white px-3 py-1 rounded-lg text-xs active" data-filter="all">All</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn bg-primary-800 text-primary-300 hover:bg-accent-500 hover:text-white px-3 py-1 rounded-lg text-xs transition-colors" data-filter="webdesign">Web design</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn bg-primary-800 text-primary-300 hover:bg-accent-500 hover:text-white px-3 py-1 rounded-lg text-xs transition-colors" data-filter="applications">Applications</button>
+              </li>
+              <li class="filter-item">
+                <button class="filter-btn bg-primary-800 text-primary-300 hover:bg-accent-500 hover:text-white px-3 py-1 rounded-lg text-xs transition-colors" data-filter="webdevelopment">Web development</button>
+              </li>
+            </ul>
+
+            <!-- Projects Grid -->
+            <ul class="project-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Proyecto 1 -->
+              <li class="project-item" data-category="webdevelopment">
+                <a href="https://casluingenieria.com/" target="_blank" class="block">
+                  <figure class="project-img relative rounded-xl overflow-hidden mb-2 group">
+                    <div class="project-item-icon-box w-12 h-12 flex items-center justify-center">
+                      <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <img src="fotos/caslu.png" 
+                         alt="Finance" class="w-full h-40 object-cover transition-transform duration-500">
+                  </figure>
+                  <h3 class="project-title text-base font-medium text-white ml-2">Sitio Web Corporativo</h3>
+                  <p class="project-category text-accent-500 text-xs ml-2">Web development</p>
+                </a>
+              </li>
+
+              <!-- Proyecto 2 -->
+              <li class="project-item" data-category="webdevelopment">
+                <a href="https://lermontgroupsrl.com/" target="_blank" class="block">
+                  <figure class="project-img relative rounded-xl overflow-hidden mb-2 group">
+                    <div class="project-item-icon-box w-12 h-12 flex items-center justify-center">
+                      <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <img src="fotos/lermont2.png" 
+                         alt="Orizon" class="w-full h-40 object-cover transition-transform duration-500">
+                  </figure>
+                  <h3 class="project-title text-base font-medium text-white ml-2">Sitio Web Corporativo</h3>
+                  <p class="project-category text-accent-500 text-xs ml-2">Web development</p>
+                </a>
+              </li>
+
+              <!-- Proyecto 3 -->
+              <li class="project-item" data-category="webdesign">
+                <a href="https://ambersepulveda.github.io/web-de-decitas-para-peluqueria/" target="_blank" class="block">
+                  <figure class="project-img relative rounded-xl overflow-hidden mb-2 group">
+                    <div class="project-item-icon-box w-12 h-12 flex items-center justify-center">
+                      <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <img src="fotos/peluqueria.png" 
+                         alt="Fundo" class="w-full h-40 object-cover transition-transform duration-500">
+                  </figure>
+                  <h3 class="project-title text-base font-medium text-white ml-2">DecoPeluqueria</h3>
+                  <p class="project-category text-accent-500 text-xs ml-2">Web design</p>
+                </a>
+              </li>
+
+              <!-- Proyecto 4 -->
+              <li class="project-item" data-category="applications">
+                <a href="https://ambersepulveda.github.io/ferreteria/" target="_blank" class="block">
+                  <figure class="project-img relative rounded-xl overflow-hidden mb-2 group">
+                    <div class="project-item-icon-box w-12 h-12 flex items-center justify-center">
+                      <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <img src="fotos/ferreteria.png" 
+                         alt="Brawlhalla" class="w-full h-40 object-cover transition-transform duration-500">
+                  </figure>
+                  <h3 class="project-title text-base font-medium text-white ml-2">Ferreteria</h3>
+                  <p class="project-category text-accent-500 text-xs ml-2">Web design</p>
+                </a>
+              </li>
+
+              <!-- Proyecto 5 -->
+              <li class="project-item" data-category="webdesign">
+                <a href="https://ambersepulveda.github.io/sweet-donuts/" class="block">
+                  <figure class="project-img relative rounded-xl overflow-hidden mb-2 group">
+                    <div class="project-item-icon-box w-12 h-12 flex items-center justify-center">
+                      <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <img src="/fotos/donut.png" 
+                         alt="DSM" class="w-full h-40 object-cover transition-transform duration-500">
+                  </figure>
+                  <h3 class="project-title text-base font-medium text-white ml-2">Sweet donuts</h3>
+                  <p class="project-category text-accent-500 text-xs ml-2">Web design</p>
+                </a>
+              </li>
+
+              <!-- Proyecto 6 
+              <li class="project-item" data-category="applications">
+                <a href="#" class="block">
+                  <figure class="project-img relative rounded-xl overflow-hidden mb-2 group">
+                    <div class="project-item-icon-box w-12 h-12 flex items-center justify-center">
+                      <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         alt="MetaSpark" class="w-full h-40 object-cover transition-transform duration-500">
+                  </figure>
+                  <h3 class="project-title text-base font-medium text-white ml-2">Fitness Tracker</h3>
+                  <p class="project-category text-accent-500 text-xs ml-2">Applications</p>
+                </a>
+              </li> -->
+            </ul>
+          </section>
+        </article>
+
+        
+
+        <!-- Contact Section -->
+        <article class="contact section card-gradient rounded-2xl p-4" data-page="contact">
+          <header class="mb-4">
+            <h2 class="text-xl font-bold text-white relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-1 after:bg-gradient-to-r after:from-accent-500 after:to-accent-600">
+              Contacto
+            </h2>
+          </header>
+
+          <section class="mapbox mb-4 rounded-xl overflow-hidden h-48">
+            <figure class="h-full">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.164358728926!2d-69.938987424249!3d18.483372671982007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf89d369bb5a5d%3A0x5df74e6f87bea4b2!2sSanto%20Domingo%2C%20Rep%C3%BAblica%20Dominicana!5e0!3m2!1ses!2s!4v1689876543210!5m2!1ses!2s" 
+                width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </figure>
+          </section>
+
+          <section class="contact-form">
+            <h3 class="text-lg font-semibold text-white mb-3">Formulario de Contacto</h3>
+            <form id="contactForm" class="form">
+              <div class="input-wrapper grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                <input type="text" name="fullname" id="fullname" class="form-input bg-primary-800 border border-primary-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-accent-500 transition-colors text-sm" placeholder="Full name" required>
+                <input type="email" name="email" id="email" class="form-input bg-primary-800 border border-primary-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-accent-500 transition-colors text-sm" placeholder="Email address" required>
+              </div>
+              <textarea name="message" id="message" class="form-input bg-primary-800 border border-primary-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-accent-500 transition-colors w-full h-24 mb-3 text-sm" placeholder="Your Message" required></textarea>
+              <button type="submit" class="form-btn px-4 py-2 rounded-xl flex items-center justify-center gap-2 w-full text-sm" id="submitBtn">
+                <i class="fas fa-paper-plane"></i>
+                <span>Send Message</span>
+              </button>
+              <div id="formMessage" class="mt-3 text-sm text-center hidden"></div>
+            </form>
+          </section>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Inicializar navegación
+    function initNavigation() {
+      // Mostrar solo la sección About al inicio
+      document.querySelectorAll('.section').forEach(section => {
+        if (section.dataset.page === 'about') {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      });
+      
+      // Activar el botón About por defecto
+      document.querySelectorAll('[data-nav-link]').forEach(link => {
+        if (link.dataset.navLink === 'about') {
+          link.classList.add('nav-active');
+        } else {
+          link.classList.remove('nav-active');
+        }
+      });
+    }
+    
+    // Ejecutar al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      initNavigation();
+      
+      // Sidebar toggle functionality
+      const sidebarBtn = document.querySelector('[data-sidebar-btn]');
+      const sidebar = document.querySelector('.sidebar');
+      
+      if (sidebarBtn && sidebar) {
+        sidebarBtn.addEventListener('click', function() {
+          sidebar.classList.toggle('active');
+          const isActive = sidebar.classList.contains('active');
+          const span = this.querySelector('span');
+          if (span) {
+            span.textContent = isActive ? 'Hide Contacts' : 'Show Contacts';
+          }
+        });
+      }
+      
+      // Navigation functionality
+      document.querySelectorAll('[data-nav-link]').forEach(link => {
+        link.addEventListener('click', function() {
+          // Remove active class from all nav links
+          document.querySelectorAll('[data-nav-link]').forEach(navLink => {
+            navLink.classList.remove('nav-active');
+          });
+          
+          // Add active class to clicked nav link
+          this.classList.add('nav-active');
+          
+          // Hide all sections
+          document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+          });
+          
+          // Show target section
+          const targetPage = this.getAttribute('data-nav-link');
+          const targetSection = document.querySelector(`[data-page="${targetPage}"]`);
+          if (targetSection) {
+            targetSection.classList.add('active');
+          }
+        });
+      });
+      
+      // Portfolio filtering
+      document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all filter buttons
+          document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('bg-accent-500', 'text-white');
+            btn.classList.add('bg-primary-800', 'text-primary-300');
+          });
+          
+          // Add active class to clicked filter button
+          this.classList.remove('bg-primary-800', 'text-primary-300');
+          this.classList.add('bg-accent-500', 'text-white');
+          
+          const filterValue = this.getAttribute('data-filter');
+          
+          // Show/hide projects based on filter
+          document.querySelectorAll('.project-item').forEach(project => {
+            if (filterValue === 'all') {
+              project.style.display = 'block';
+            } else {
+              const category = project.getAttribute('data-category');
+              if (category === filterValue) {
+                project.style.display = 'block';
+              } else {
+                project.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+      
+      // Contact form functionality
+      const contactForm = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const formMessage = document.getElementById('formMessage');
+      
+      if (contactForm && submitBtn && formMessage) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(contactForm);
+          const name = formData.get('fullname');
+          const email = formData.get('email');
+          const message = formData.get('message');
+          
+          // Simulate form submission
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Sending...</span>';
+          
+          setTimeout(() => {
+            // Show success message
+            formMessage.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
+            formMessage.classList.remove('hidden', 'text-red-500');
+            formMessage.classList.add('text-green-500');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Reset button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Message</span>';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+              formMessage.classList.add('hidden');
+            }, 5000);
+          }, 2000);
+        });
+        
+        // Form validation
+        const inputs = contactForm.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+          input.addEventListener('input', () => {
+            const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+            
+            if (allFilled) {
+              submitBtn.disabled = false;
+              submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+              submitBtn.disabled = true;
+              submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
